@@ -5,7 +5,9 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
+    "@testing-library/react": "9.4.1",
     "@xstate/react": "1.0.0-rc.0",
+    "@xstate/test": "0.3.0",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "react-scripts": "2.1.3",

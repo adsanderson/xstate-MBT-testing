@@ -1,31 +1,11 @@
 import "./styles.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Machine, assign } from "xstate";
+
 import { useMachine } from "@xstate/react";
+import { toggleMachine } from "./toggleMachine";
 
-interface ToggleContext {
-  count: number;
-}
-
-const toggleMachine = Machine<ToggleContext>({
-  id: "toggle",
-  initial: "inactive",
-  context: {
-    count: 0
-  },
-  states: {
-    inactive: {
-      on: { TOGGLE: "active" }
-    },
-    active: {
-      entry: assign({ count: ctx => ctx.count + 1 }),
-      on: { TOGGLE: "inactive" }
-    }
-  }
-});
-
-function App() {
+export function App() {
   const [current, send] = useMachine(toggleMachine);
   const active = current.matches("active");
   const { count } = current.context;
@@ -37,9 +17,7 @@ function App() {
       <button onClick={() => send("TOGGLE")}>
         Click me ({active ? "✅" : "❌"})
       </button>{" "}
-      <code>
-        Toggled {count} times
-      </code>
+      <code>Toggled {count} times</code>
     </div>
   );
 }
